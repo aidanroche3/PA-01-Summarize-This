@@ -28,6 +28,7 @@ public class FileTypeVisitor implements FileVisitor<Path> {
 
   /**
    * Gets the list of the files visited
+   *
    * @return the list of all visited files
    *
    */
