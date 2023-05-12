@@ -10,6 +10,6 @@ public class Driver {
    * @param args - no command line args required
    */
   public static void main(String[] args) {
-    System.out.println("Hello from PA01 Template Repo");
+
   }
 }
