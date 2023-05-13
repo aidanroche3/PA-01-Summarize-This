@@ -28,6 +28,8 @@ class FileTypeVisitorTest {
   File notes;
   File test;
   File vectors;
+  File duedates;
+  File java;
   ArrayList<File> mdFiles;
   ArrayList<File> bothFiles;
   FileTypeVisitor md;
@@ -50,8 +52,10 @@ class FileTypeVisitorTest {
     notes = Path.of("notes-root/notes.pdf").toFile();
     test = Path.of("notes-root/test.md").toFile();
     vectors = Path.of("notes-root/vectors.md").toFile();
-    mdFiles = new ArrayList<>(Arrays.asList(arrays, test, vectors));
-    bothFiles = new ArrayList<>(Arrays.asList(arrays, notes, test, vectors));
+    duedates = Path.of("notes-root/lecture notes/duedates.pdf").toFile();
+    java = Path.of("notes-root/lecture notes/java.md").toFile();
+    mdFiles = new ArrayList<>(Arrays.asList(arrays, java, test, vectors));
+    bothFiles = new ArrayList<>(Arrays.asList(arrays, duedates, java, notes, test, vectors));
     md = new FileTypeVisitor(onlyMd);
     both = new FileTypeVisitor(withPdf);
     result = FileVisitResult.CONTINUE;

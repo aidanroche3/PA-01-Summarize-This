@@ -24,6 +24,8 @@ class FileListSorterTest {
   File notes;
   File test;
   File vectors;
+  File duedates;
+  File java;
   ArrayList<File> files;
   ArrayList<File> name;
   ArrayList<File> modified;
@@ -43,11 +45,13 @@ class FileListSorterTest {
     notes = Path.of("notes-root/notes.pdf").toFile();
     test = Path.of("notes-root/test.md").toFile();
     vectors = Path.of("notes-root/vectors.md").toFile();
+    duedates = Path.of("notes-root/lecture notes/duedates.pdf").toFile();
+    java = Path.of("notes-root/lecture notes/java.md").toFile();
     Files.walkFileTree(path, visitor);
     files = visitor.getFiles();
-    name = new ArrayList<>(Arrays.asList(arrays, notes, test, vectors));
-    modified = new ArrayList<>(Arrays.asList(arrays, test, vectors, notes));
-    created = new ArrayList<>(Arrays.asList(arrays, vectors, test, notes));
+    name = new ArrayList<>(Arrays.asList(arrays, duedates, java, notes, test, vectors));
+    modified = new ArrayList<>(Arrays.asList(arrays, test, vectors, notes, duedates, java));
+    created = new ArrayList<>(Arrays.asList(arrays, vectors, test, notes, java, duedates));
   }
 
   /**
