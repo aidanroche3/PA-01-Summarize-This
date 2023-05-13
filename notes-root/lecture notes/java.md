@@ -2,7 +2,7 @@
 - High-level language
 - [[ Object-oriented ]]
 - Class based
-- Java applications are typically compiled to bytecode that can run on any Java virtual machine (JVM)
+- Java applications are typically compiled to bytecode that can run on any JVM
 
 ## History
 - Originally developed by James Gosling at Sun Microsystems
