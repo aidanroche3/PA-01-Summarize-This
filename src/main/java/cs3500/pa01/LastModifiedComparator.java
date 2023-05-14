@@ -21,16 +21,14 @@ public class LastModifiedComparator implements Comparator<File> {
   @Override
   public int compare(File one, File two) {
 
-    FileTime first = null;
-    FileTime second = null;
+    FileTime first;
+    FileTime second;
 
     try {
       first = Files.readAttributes(one.toPath(), BasicFileAttributes.class).lastModifiedTime();
       second = Files.readAttributes(two.toPath(), BasicFileAttributes.class).lastModifiedTime();
     } catch (IOException e) {
-      e.printStackTrace();
-      System.err.println("Error reading file attributes");
-      System.exit(1);
+      throw new IllegalStateException(e);
     }
     return first.compareTo(second);
   }
