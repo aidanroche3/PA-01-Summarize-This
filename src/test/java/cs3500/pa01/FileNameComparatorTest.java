@@ -16,8 +16,8 @@ class FileNameComparatorTest {
    */
   @Test
   public void testCompare() {
-    File one = Path.of("notes-root/arrays.md").toFile();
-    File two = Path.of("notes-root/vectors.md").toFile();
+    File one = Path.of("src/tests/resources/notes-root/arrays.md").toFile();
+    File two = Path.of("src/tests/resources/notes-root/vectors.md").toFile();
     FileNameComparator fnc = new FileNameComparator();
     assertEquals(-21, fnc.compare(one, two));
     assertEquals(21, fnc.compare(two, one));

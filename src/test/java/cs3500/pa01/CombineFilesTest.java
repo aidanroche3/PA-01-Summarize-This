@@ -32,11 +32,11 @@ class CombineFilesTest {
    */
   @BeforeEach
   public void setup() {
-    arrays = Path.of("notes-root/arrays.md").toFile();
-    test = Path.of("notes-root/test.md").toFile();
-    vectors = Path.of("notes-root/vectors.md").toFile();
-    java = Path.of("notes-root/lecture notes/java.md").toFile();
-    fake = Path.of("notes-root/nonexistent.md").toFile();
+    arrays = Path.of("src/tests/resources/notes-root/arrays.md").toFile();
+    test = Path.of("src/tests/resources/notes-root/test.md").toFile();
+    vectors = Path.of("src/tests/resources/notes-root/vectors.md").toFile();
+    java = Path.of("src/tests/resources/notes-root/lecture notes/java.md").toFile();
+    fake = Path.of("src/tests/resources/notes-root/nonexistent.md").toFile();
     twoFiles = new ArrayList<>(Arrays.asList(test, arrays));
     files = new ArrayList<>(Arrays.asList(arrays, test, vectors, java));
     withFake = new ArrayList<>(Arrays.asList(test, fake));

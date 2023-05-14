@@ -15,7 +15,8 @@ class DriverTest {
    */
   @Test
   public void testMain() {
-    String[] args = {"notes-root", "filename", "outputDirectory/summary.md"};
+    String[] args = {"src/tests/resources/notes-root",
+        "filename", "src/tests/resources/outputDirectory/summary.md"};
     assertDoesNotThrow(() -> Driver.main(args));
   }
 
@@ -24,21 +25,28 @@ class DriverTest {
    */
   @Test
   public void testValidateArgs() {
-    String[] invalidLength = {"notes-root", "filename"};
+    String[] invalidLength = {"src/tests/resources/notes-root", "filename"};
     assertThrows(IllegalArgumentException.class, () -> Driver.validateArgs(invalidLength));
-    String[] invalidRoot = {"fake-root", "modified", "outputDirectory/summary.md"};
+    String[] invalidRoot = {"fake-root",
+        "modified", "src/tests/resources/outputDirectory/summary.md"};
     assertThrows(IllegalArgumentException.class, () -> Driver.validateArgs(invalidRoot));
-    String[] nonDirectory = {"fake.md", "modified", "outputDirectory/summary.md"};
+    String[] nonDirectory = {"fake.md", "modified",
+        "src/tests/resources/outputDirectory/summary.md"};
     assertThrows(IllegalArgumentException.class, () -> Driver.validateArgs(nonDirectory));
-    String[] invalidFlag = {"notes-root", "invalid", "outputDirectory/summary.md"};
+    String[] invalidFlag = {"src/tests/resources/notes-root",
+        "invalid", "src/tests/resources/outputDirectory/summary.md"};
     assertThrows(IllegalArgumentException.class, () -> Driver.validateArgs(invalidFlag));
-    String[] invalidRelativePath = {"notes-root", "created", "fakeDirectory/new"};
+    String[] invalidRelativePath = {"src/tests/resources/notes-root",
+        "created", "src/tests/resources/fakeDirectory/new"};
     assertThrows(IllegalArgumentException.class, () -> Driver.validateArgs(invalidRelativePath));
-    String[] notInMd = {"notes-root", "modified", "outputDirectory/summary.pdf"};
+    String[] notInMd = {"src/tests/resources/notes-root",
+        "modified", "src/tests/resources/outputDirectory/summary.pdf"};
     assertThrows(IllegalArgumentException.class, () -> Driver.validateArgs(notInMd));
-    String[] newFile = {"notes-root", "created", "outputDirectory/newfile.md"};
+    String[] newFile = {"src/tests/resources/notes-root",
+        "created", "src/tests/resources/outputDirectory/newfile.md"};
     assertDoesNotThrow(() -> Driver.validateArgs(newFile));
-    String[] validArgs = {"notes-root", "filename", "outputDirectory/summary.md"};
+    String[] validArgs = {"src/tests/resources/notes-root",
+        "filename", "src/tests/resources/outputDirectory/summary.md"};
     assertDoesNotThrow(() -> Driver.validateArgs(validArgs));
   }
 

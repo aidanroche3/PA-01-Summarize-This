@@ -46,14 +46,14 @@ class FileTypeVisitorTest {
   public void setup() throws IOException {
     onlyMd = new ArrayList<>(List.of(".md"));
     withPdf = new ArrayList<>(Arrays.asList(".md", ".pdf"));
-    path = Path.of("notes-root");
-    arraysPath = Path.of("notes-root/arrays.md");
+    path = Path.of("src/tests/resources/notes-root");
+    arraysPath = Path.of("src/tests/resources/notes-root/arrays.md");
     arrays = arraysPath.toFile();
-    notes = Path.of("notes-root/notes.pdf").toFile();
-    test = Path.of("notes-root/test.md").toFile();
-    vectors = Path.of("notes-root/vectors.md").toFile();
-    duedates = Path.of("notes-root/lecture notes/duedates.pdf").toFile();
-    java = Path.of("notes-root/lecture notes/java.md").toFile();
+    notes = Path.of("src/tests/resources/notes-root/notes.pdf").toFile();
+    test = Path.of("src/tests/resources/notes-root/test.md").toFile();
+    vectors = Path.of("src/tests/resources/notes-root/vectors.md").toFile();
+    duedates = Path.of("src/tests/resources/notes-root/lecture notes/duedates.pdf").toFile();
+    java = Path.of("src/tests/resources/notes-root/lecture notes/java.md").toFile();
     mdFiles = new ArrayList<>(Arrays.asList(arrays, java, test, vectors));
     bothFiles = new ArrayList<>(Arrays.asList(arrays, duedates, java, notes, test, vectors));
     md = new FileTypeVisitor(onlyMd);

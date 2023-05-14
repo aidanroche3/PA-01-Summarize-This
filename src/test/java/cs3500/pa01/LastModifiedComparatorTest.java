@@ -17,12 +17,12 @@ public class LastModifiedComparatorTest {
    */
   @Test
   public void testCompare() {
-    File one = Path.of("notes-root/arrays.md").toFile();
-    File two = Path.of("notes-root/vectors.md").toFile();
-    File three = Path.of("notes-root/nonexistent.pdf").toFile();
+    File one = Path.of("src/tests/resources/notes-root/arrays.md").toFile();
+    File two = Path.of("src/tests/resources/notes-root/vectors.md").toFile();
+    File three = Path.of("src/tests/resources/notes-root/nonexistent.pdf").toFile();
     LastModifiedComparator lmc = new LastModifiedComparator();
     assertEquals(-1, lmc.compare(one, two));
     assertEquals(1, lmc.compare(two, one));
-    assertThrows(IllegalStateException.class, () -> lmc.compare(one, three));
+    assertThrows(IllegalArgumentException.class, () -> lmc.compare(one, three));
   }
 }
