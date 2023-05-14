@@ -39,7 +39,6 @@ public class Driver {
     String formattedFiles = fileFormatter.summarizeContent();
     WriteFilesToPath fileWriter = new WriteFilesToPath();
     fileWriter.writeAtPath(outputPath, formattedFiles);
-    System.out.println(formattedFiles);
     System.out.println("Successfully summarized files of " + rootPath + " at " + outputPath);
 
   }
@@ -61,8 +60,6 @@ public class Driver {
       } else {
         throw new IllegalArgumentException("Invalid root path.");
       }
-
-      System.out.println("ROOT PATH: " + Driver.rootPath);
 
       // validates the order flag
       if (args[1].equals("filename") || args[1].equals("created") || args[1].equals("modified")) {

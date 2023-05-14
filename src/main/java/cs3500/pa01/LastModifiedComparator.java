@@ -1,9 +1,6 @@
 package cs3500.pa01;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.FileTime;
 import java.util.Comparator;
 
@@ -20,16 +17,8 @@ public class LastModifiedComparator implements Comparator<File> {
    */
   @Override
   public int compare(File one, File two) {
-
-    FileTime first;
-    FileTime second;
-
-    try {
-      first = Files.readAttributes(one.toPath(), BasicFileAttributes.class).lastModifiedTime();
-      second = Files.readAttributes(two.toPath(), BasicFileAttributes.class).lastModifiedTime();
-    } catch (IOException e) {
-      throw new IllegalStateException(e);
-    }
+    FileTime first = new MarkDownFile(one).getLastModified();
+    FileTime second = new MarkDownFile(two).getLastModified();
     return first.compareTo(second);
   }
 }

@@ -16,6 +16,8 @@ public class FileNameComparator implements Comparator<File> {
    */
   @Override
   public int compare(File one, File two) {
-    return one.getName().compareTo(two.getName());
+    String first = new MarkDownFile(one).getFilename();
+    String second = new MarkDownFile(two).getFilename();
+    return first.compareTo(second);
   }
 }

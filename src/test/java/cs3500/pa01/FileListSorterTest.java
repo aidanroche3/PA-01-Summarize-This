@@ -7,8 +7,10 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.attribute.FileTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,11 +23,13 @@ class FileListSorterTest {
   ArrayList<String> validTypes;
   FileTypeVisitor visitor;
   File arrays;
-  File notes;
   File test;
   File vectors;
-  File duedates;
   File java;
+  File arraysMd;
+  File testMd;
+  File vectorsMd;
+  File javaMd;
   ArrayList<File> files;
   ArrayList<File> name;
   ArrayList<File> modified;
@@ -38,20 +42,30 @@ class FileListSorterTest {
    */
   @BeforeEach
   public void setup() throws IOException {
-    path = Path.of("notes-root");
-    validTypes = new ArrayList<>(Arrays.asList(".md", ".pdf"));
+    path = Path.of("src/tests/resources/notes-root");
+    validTypes = new ArrayList<>(List.of(".md"));
     visitor = new FileTypeVisitor(validTypes);
-    arrays = Path.of("notes-root/arrays.md").toFile();
-    notes = Path.of("notes-root/notes.pdf").toFile();
-    test = Path.of("notes-root/test.md").toFile();
-    vectors = Path.of("notes-root/vectors.md").toFile();
-    duedates = Path.of("notes-root/lecture notes/duedates.pdf").toFile();
-    java = Path.of("notes-root/lecture notes/java.md").toFile();
+    arrays = Path.of("src/tests/resources/notes-root/arrays.md").toFile();
+    test = Path.of("src/tests/resources/notes-root/test.md").toFile();
+    vectors = Path.of("src/tests/resources/notes-root/vectors.md").toFile();
+    java = Path.of("src/tests/resources/notes-root/lecture notes/java.md").toFile();
+    arraysMd = new MarkDownFile(arrays,
+        FileTime.fromMillis(1683850965878L),
+        FileTime.fromMillis(1683850988417L)).toFile();
+    testMd = new MarkDownFile(test,
+        FileTime.fromMillis(1683865633836L),
+        FileTime.fromMillis(1683865651299L)).toFile();
+    vectorsMd = new MarkDownFile(vectors,
+        FileTime.fromMillis(1683851000934L),
+        FileTime.fromMillis(1683865690271L)).toFile();
+    javaMd = new MarkDownFile(java,
+        FileTime.fromMillis(1683935438465L),
+        FileTime.fromMillis(1683941287429L)).toFile();
     Files.walkFileTree(path, visitor);
     files = visitor.getFiles();
-    name = new ArrayList<>(Arrays.asList(arrays, duedates, java, notes, test, vectors));
-    modified = new ArrayList<>(Arrays.asList(arrays, test, vectors, notes, duedates, java));
-    created = new ArrayList<>(Arrays.asList(arrays, vectors, test, notes, java, duedates));
+    name = new ArrayList<>(Arrays.asList(arraysMd, javaMd, testMd, vectorsMd));
+    modified = new ArrayList<>(Arrays.asList(arraysMd, testMd, vectorsMd, javaMd));
+    created = new ArrayList<>(Arrays.asList(arraysMd, vectorsMd, testMd, javaMd));
   }
 
   /**
