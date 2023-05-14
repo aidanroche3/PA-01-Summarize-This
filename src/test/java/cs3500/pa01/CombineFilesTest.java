@@ -132,7 +132,6 @@ class CombineFilesTest {
   public void testGetCombinedFiles() throws IOException {
     CombineFiles one = new CombineFiles(twoFiles);
     CombineFiles two = new CombineFiles(files);
-    CombineFiles three = new CombineFiles(withFake);
     String twoCombined;
     String fourCombined;
     try {
@@ -141,6 +140,7 @@ class CombineFilesTest {
     } catch (IOException e) {
       throw new IOException(e);
     }
+    CombineFiles three = new CombineFiles(withFake);
     assertEquals(arraysAndTest, twoCombined);
     assertEquals(allCombined, fourCombined);
     assertThrows(RuntimeException.class, three::getCombinedFiles);

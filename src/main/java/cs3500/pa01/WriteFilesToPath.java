@@ -11,6 +11,7 @@ public class WriteFilesToPath {
 
   /**
    * Writes a given output to a specified path
+   *
    * @param outputPath the path to write to
    * @param output the content to write at the path
    */
