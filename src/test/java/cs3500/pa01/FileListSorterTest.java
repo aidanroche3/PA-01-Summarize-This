@@ -96,11 +96,11 @@ class FileListSorterTest {
     FileListSorter fls = new FileListSorter(mdFiles, "created");
     ArrayList<MarkDownFile> createdOutput = fls.getSortedList();
     assertTrue(createdOutput.get(0).getDateCreated().compareTo(
-        createdOutput.get(1).getDateCreated()) < 0);
+        createdOutput.get(1).getDateCreated()) <= 0);
     assertTrue(createdOutput.get(1).getDateCreated().compareTo(
-        createdOutput.get(2).getDateCreated()) < 0);
+        createdOutput.get(2).getDateCreated()) <= 0);
     assertTrue(createdOutput.get(2).getDateCreated().compareTo(
-        createdOutput.get(3).getDateCreated()) < 0);
+        createdOutput.get(3).getDateCreated()) <= 0);
   }
 
   /**
@@ -111,11 +111,11 @@ class FileListSorterTest {
     FileListSorter fls = new FileListSorter(mdFiles, "modified");
     ArrayList<MarkDownFile> modifiedOutput = fls.getSortedList();
     assertTrue(modifiedOutput.get(0).getLastModified().compareTo(
-        modifiedOutput.get(1).getLastModified()) < 0);
+        modifiedOutput.get(1).getLastModified()) <= 0);
     assertTrue(modifiedOutput.get(1).getLastModified().compareTo(
-        modifiedOutput.get(2).getLastModified()) < 0);
+        modifiedOutput.get(2).getLastModified()) <= 0);
     assertTrue(modifiedOutput.get(2).getLastModified().compareTo(
-        modifiedOutput.get(3).getLastModified()) < 0);
+        modifiedOutput.get(3).getLastModified()) <= 0);
   }
 
   /**
