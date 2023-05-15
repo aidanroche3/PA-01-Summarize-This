@@ -4,7 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -65,11 +69,22 @@ class MarkDownFileTest {
    */
   @Test
   public void testGetDateCreated() {
-    assertEquals("2023-05-12T00:22:45.8787901Z", arraysMd.getDateCreated().toString());
-    assertEquals("2023-05-12T04:27:13.8361739Z", testMd.getDateCreated().toString());
-    assertEquals("2023-05-12T00:23:20.9349153Z", vectorsMd.getDateCreated().toString());
-    System.out.println(javaMd.getDateCreated().toMillis());
-    System.out.println(javaMd.getLastModified().toMillis());
+    FileTime arrayTime;
+    FileTime testTime;
+    FileTime vectorsTime;
+    try {
+      arrayTime = Files.readAttributes(arrays.toPath(),
+          BasicFileAttributes.class).creationTime();
+      testTime = Files.readAttributes(test.toPath(),
+          BasicFileAttributes.class).creationTime();
+      vectorsTime = Files.readAttributes(vectors.toPath(),
+          BasicFileAttributes.class).creationTime();
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+    assertEquals(arrayTime, arraysMd.getDateCreated());
+    assertEquals(testTime, testMd.getDateCreated());
+    assertEquals(vectorsTime, vectorsMd.getDateCreated());
   }
 
   /**
@@ -78,9 +93,22 @@ class MarkDownFileTest {
    */
   @Test
   public void testGetLastModified() {
-    assertEquals("2023-05-12T00:23:08.4171844Z", arraysMd.getLastModified().toString());
-    assertEquals("2023-05-12T04:27:31.2998209Z", testMd.getLastModified().toString());
-    assertEquals("2023-05-12T04:28:10.2716696Z", vectorsMd.getLastModified().toString());
+    FileTime arrayTime;
+    FileTime testTime;
+    FileTime vectorsTime;
+    try {
+      arrayTime = Files.readAttributes(arrays.toPath(),
+          BasicFileAttributes.class).lastModifiedTime();
+      testTime = Files.readAttributes(test.toPath(),
+          BasicFileAttributes.class).lastModifiedTime();
+      vectorsTime = Files.readAttributes(vectors.toPath(),
+          BasicFileAttributes.class).lastModifiedTime();
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+    assertEquals(arrayTime, arraysMd.getLastModified());
+    assertEquals(testTime, testMd.getLastModified());
+    assertEquals(vectorsTime, vectorsMd.getLastModified());
   }
 
 }
