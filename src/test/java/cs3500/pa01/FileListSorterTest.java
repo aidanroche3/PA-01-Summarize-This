@@ -2,6 +2,7 @@ package cs3500.pa01;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,8 +35,6 @@ class FileListSorterTest {
   ArrayList<File> files;
   ArrayList<MarkDownFile> mdFiles;
   ArrayList<MarkDownFile> name;
-  ArrayList<MarkDownFile> modified;
-  ArrayList<MarkDownFile> created;
 
   /**
    * Initializes the data to be tested
@@ -55,28 +54,26 @@ class FileListSorterTest {
         Files.readAttributes(arrays.toPath(), BasicFileAttributes.class).creationTime();
     FileTime arraysModified =
         Files.readAttributes(arrays.toPath(), BasicFileAttributes.class).lastModifiedTime();
+    arraysMd = new MarkDownFile(arrays, arraysCreated, arraysModified);
     FileTime testCreated =
         Files.readAttributes(test.toPath(), BasicFileAttributes.class).creationTime();
     FileTime testModified =
         Files.readAttributes(test.toPath(), BasicFileAttributes.class).lastModifiedTime();
+    testMd = new MarkDownFile(test, testCreated, testModified);
     FileTime vectorsCreated =
         Files.readAttributes(vectors.toPath(), BasicFileAttributes.class).creationTime();
     FileTime vectorsModified =
         Files.readAttributes(vectors.toPath(), BasicFileAttributes.class).lastModifiedTime();
+    vectorsMd = new MarkDownFile(vectors, vectorsCreated, vectorsModified);
     FileTime javaCreated =
         Files.readAttributes(java.toPath(), BasicFileAttributes.class).creationTime();
     FileTime javaModified =
         Files.readAttributes(java.toPath(), BasicFileAttributes.class).lastModifiedTime();
-    arraysMd = new MarkDownFile(arrays, arraysCreated, arraysModified);
-    testMd = new MarkDownFile(test, testCreated, testModified);
-    vectorsMd = new MarkDownFile(vectors, vectorsCreated, vectorsModified);
     javaMd = new MarkDownFile(java, javaCreated, javaModified);
     Files.walkFileTree(path, visitor);
     files = visitor.getFiles();
     mdFiles = MarkDownFile.listToMarkDownFiles(files);
     name = new ArrayList<>(Arrays.asList(arraysMd, javaMd, testMd, vectorsMd));
-    created = new ArrayList<>(Arrays.asList(arraysMd, vectorsMd, testMd, javaMd));
-    modified = new ArrayList<>(Arrays.asList(arraysMd, testMd, vectorsMd, javaMd));
   }
 
   /**
@@ -98,9 +95,12 @@ class FileListSorterTest {
   public void testCreatedSort() {
     FileListSorter fls = new FileListSorter(mdFiles, "created");
     ArrayList<MarkDownFile> createdOutput = fls.getSortedList();
-    for (int i = 0; i < created.size(); i++) {
-      assertEquals(created.get(i).getDateCreated(), createdOutput.get(i).getDateCreated());
-    }
+    assertTrue(createdOutput.get(0).getDateCreated().compareTo(
+        createdOutput.get(1).getDateCreated()) < 0);
+    assertTrue(createdOutput.get(1).getDateCreated().compareTo(
+        createdOutput.get(2).getDateCreated()) < 0);
+    assertTrue(createdOutput.get(2).getDateCreated().compareTo(
+        createdOutput.get(3).getDateCreated()) < 0);
   }
 
   /**
@@ -110,9 +110,12 @@ class FileListSorterTest {
   public void testModifiedSort() {
     FileListSorter fls = new FileListSorter(mdFiles, "modified");
     ArrayList<MarkDownFile> modifiedOutput = fls.getSortedList();
-    for (int i = 0; i < modified.size(); i++) {
-      assertEquals(modified.get(i).getLastModified(), modifiedOutput.get(i).getLastModified());
-    }
+    assertTrue(modifiedOutput.get(0).getLastModified().compareTo(
+        modifiedOutput.get(1).getLastModified()) < 0);
+    assertTrue(modifiedOutput.get(1).getLastModified().compareTo(
+        modifiedOutput.get(2).getLastModified()) < 0);
+    assertTrue(modifiedOutput.get(2).getLastModified().compareTo(
+        modifiedOutput.get(3).getLastModified()) < 0);
   }
 
   /**
