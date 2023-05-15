@@ -31,7 +31,6 @@ class WriteFilesToPathTest {
     combined = combine.getCombinedFiles();
     FormatFile formatFile = new FormatFile(combined);
     String output = formatFile.summarizeContent();
-
     Path sample = Path.of("src/tests/resources/outputDirectory/samplesummary.md");
     Path testTwo = Path.of("src/tests/resources/outputDirectory/test.md");
     Path fake = Path.of("src/tests/resources/fakeDirectory/nonexistent.md");

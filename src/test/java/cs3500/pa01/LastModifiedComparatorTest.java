@@ -17,7 +17,6 @@ public class LastModifiedComparatorTest {
    */
   @Test
   public void testCompare() {
-
     File arrays = Path.of("src/tests/resources/notes-root/arrays.md").toFile();
     MarkDownFile one = new MarkDownFile(arrays,
         FileTime.fromMillis(1683850965878L),

@@ -41,10 +41,9 @@ class FileTypeVisitorTest {
   /**
    * Sets the initial values used for testing
    *
-   * @throws IOException on readAttributes
    */
   @BeforeEach
-  public void setup() throws IOException {
+  public void setup() {
     onlyMd = new ArrayList<>(List.of(".md"));
     withPdf = new ArrayList<>(Arrays.asList(".md", ".pdf"));
     path = Path.of("src/tests/resources/notes-root");
@@ -60,7 +59,11 @@ class FileTypeVisitorTest {
     md = new FileTypeVisitor(onlyMd);
     both = new FileTypeVisitor(withPdf);
     result = FileVisitResult.CONTINUE;
-    attrs = Files.readAttributes(arraysPath, BasicFileAttributes.class);
+    try {
+      attrs = Files.readAttributes(arraysPath, BasicFileAttributes.class);
+    } catch (IOException e) {
+      throw new IllegalArgumentException(e);
+    }
   }
 
   /**

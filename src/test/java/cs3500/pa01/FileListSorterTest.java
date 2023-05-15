@@ -72,7 +72,7 @@ class FileListSorterTest {
       javaMd = new MarkDownFile(java, javaCreated, javaModified);
       Files.walkFileTree(path, visitor);
     } catch (IOException e) {
-      throw  new IllegalArgumentException(e);
+      throw new IllegalArgumentException(e);
     }
     files = visitor.getFiles();
     mdFiles = MarkDownFile.listToMarkDownFiles(files);
