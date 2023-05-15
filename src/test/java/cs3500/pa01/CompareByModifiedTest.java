@@ -8,9 +8,9 @@ import java.nio.file.attribute.FileTime;
 import org.junit.jupiter.api.Test;
 
 /**
- * Testing the DateCreatedComparator class and its associated methods
+ * Class for testing CompareByModified and its related methods
  */
-class DateCreatedComparatorTest {
+public class CompareByModifiedTest {
 
   /**
    * Tests the compare method
@@ -25,9 +25,8 @@ class DateCreatedComparatorTest {
     MarkDownFile two = new MarkDownFile(vectors,
         FileTime.fromMillis(1683851000934L),
         FileTime.fromMillis(1683865690271L));
-    DateCreatedComparator dcc = new DateCreatedComparator();
-    assertEquals(-1, dcc.compare(one, two));
-    assertEquals(1, dcc.compare(two, one));
+    CompareByModified cbm = new CompareByModified();
+    assertEquals(-1, cbm.compare(one, two));
+    assertEquals(1, cbm.compare(two, one));
   }
-
 }

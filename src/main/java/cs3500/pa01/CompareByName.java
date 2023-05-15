@@ -5,7 +5,7 @@ import java.util.Comparator;
 /**
  * Class for comparing files based on their filename
  */
-public class FileNameComparator implements Comparator<MarkDownFile> {
+public class CompareByName implements Comparator<MarkDownFile> {
 
   /**
    * @param one the first object to be compared.

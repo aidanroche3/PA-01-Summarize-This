@@ -6,7 +6,7 @@ import java.util.Comparator;
 /**
  * Class for comparing files based on their last modified date
  */
-public class LastModifiedComparator implements Comparator<MarkDownFile> {
+public class CompareByModified implements Comparator<MarkDownFile> {
 
   /**
    * @param one the first object to be compared.

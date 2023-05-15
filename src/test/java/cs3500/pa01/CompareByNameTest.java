@@ -7,9 +7,9 @@ import java.nio.file.Path;
 import org.junit.jupiter.api.Test;
 
 /**
- * Class for testing FileNameComparator and its associated methods
+ * Class for testing CompareByName and its associated methods
  */
-class FileNameComparatorTest {
+class CompareByNameTest {
 
   /**
    * Tests the compare method
@@ -20,9 +20,9 @@ class FileNameComparatorTest {
     File two = Path.of("src/tests/resources/notes-root/vectors.md").toFile();
     MarkDownFile mdOne = new MarkDownFile(one);
     MarkDownFile mdTwo = new MarkDownFile(two);
-    FileNameComparator fnc = new FileNameComparator();
-    assertEquals(-21, fnc.compare(mdOne, mdTwo));
-    assertEquals(21, fnc.compare(mdTwo, mdOne));
+    CompareByName cbn = new CompareByName();
+    assertEquals(-21, cbn.compare(mdOne, mdTwo));
+    assertEquals(21, cbn.compare(mdTwo, mdOne));
   }
 
 }

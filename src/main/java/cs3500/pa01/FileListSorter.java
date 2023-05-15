@@ -28,9 +28,9 @@ public class FileListSorter {
   public ArrayList<MarkDownFile> getSortedList() {
 
     switch (orderFlag) {
-      case "filename" -> fileList.sort(new FileNameComparator());
-      case "created" -> fileList.sort(new DateCreatedComparator());
-      case "modified" -> fileList.sort(new LastModifiedComparator());
+      case "filename" -> fileList.sort(new CompareByName());
+      case "created" -> fileList.sort(new CompareByDate());
+      case "modified" -> fileList.sort(new CompareByModified());
       default -> throw new IllegalStateException("Cannot sort list.");
     }
     return fileList;
