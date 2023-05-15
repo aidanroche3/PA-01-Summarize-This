@@ -45,7 +45,7 @@ class WriteFilesToPathTest {
     } catch (IOException e) {
       throw new IllegalArgumentException(e);
     }
-    assertThrows(RuntimeException.class, () -> filesToPath.writeAtPath(fake, output));
+    assertThrows(IOException.class, () -> filesToPath.writeAtPath(fake, output));
   }
 
 }

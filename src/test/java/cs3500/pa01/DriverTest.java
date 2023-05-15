@@ -22,27 +22,30 @@ class DriverTest {
   }
 
   /**
-   * Tests the validateArgs method indirectly through main
+   * Tests valid arguments
    */
   @Test
   public void testValidateArgs() {
     String[] invalidLength = {"src/tests/resources/notes-root", "filename"};
-    assertThrows(IllegalArgumentException.class, () -> Driver.main(invalidLength));
+    assertThrows(RuntimeException.class, () -> Driver.main(invalidLength));
     String[] invalidRoot = {"fake-root",
         "modified", "src/tests/resources/outputDirectory/summary.md"};
-    assertThrows(IllegalArgumentException.class, () -> Driver.main(invalidRoot));
+    assertThrows(RuntimeException.class, () -> Driver.main(invalidRoot));
     String[] nonDirectory = {"src/tests/resources/notes-root/arrays.md", "modified",
         "src/tests/resources/outputDirectory/summary.md"};
-    assertThrows(IllegalArgumentException.class, () -> Driver.main(nonDirectory));
+    assertThrows(RuntimeException.class, () -> Driver.main(nonDirectory));
     String[] invalidFlag = {"src/tests/resources/notes-root",
         "invalid", "src/tests/resources/outputDirectory/summary.md"};
-    assertThrows(IllegalArgumentException.class, () -> Driver.main(invalidFlag));
+    assertThrows(RuntimeException.class, () -> Driver.main(invalidFlag));
     String[] invalidRelativePath = {"src/tests/resources/notes-root",
         "created", "src/tests/resources/fakeDirectory/new"};
-    assertThrows(IllegalArgumentException.class, () -> Driver.main(invalidRelativePath));
+    assertThrows(RuntimeException.class, () -> Driver.main(invalidRelativePath));
     String[] notInMd = {"src/tests/resources/notes-root",
         "modified", "src/tests/resources/outputDirectory/summary.pdf"};
-    assertThrows(IllegalArgumentException.class, () -> Driver.main(notInMd));
+    assertThrows(RuntimeException.class, () -> Driver.main(notInMd));
+    String[] invalidOutputMd = {"src/tests/resources/notes-root",
+        "created", "/fake/nonexistent.md"};
+    assertThrows(RuntimeException.class, () -> Driver.main(invalidOutputMd));
     String[] newFile = {"src/tests/resources/notes-root",
         "created", "src/tests/resources/outputDirectory/newfile.md"};
     assertDoesNotThrow(() -> Driver.main(newFile));

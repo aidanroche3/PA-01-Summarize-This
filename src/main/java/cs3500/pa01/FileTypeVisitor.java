@@ -85,7 +85,7 @@ public class FileTypeVisitor implements FileVisitor<Path> {
    * @return the visit result
    */
   @Override
-  public FileVisitResult visitFileFailed(Path file, IOException exc) {
+  public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
     FileTypeVisitor.handleException(exc);
     return CONTINUE;
   }
@@ -114,7 +114,7 @@ public class FileTypeVisitor implements FileVisitor<Path> {
    *
    * @param e the exception to throw
    */
-  private static void handleException(IOException e) {
-    throw new RuntimeException(e);
+  private static void handleException(IOException e) throws IOException {
+    throw new IOException(e);
   }
 }

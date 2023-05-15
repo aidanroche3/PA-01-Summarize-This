@@ -22,7 +22,7 @@ public class WriteFilesToPath {
     try {
       fileWriter = new FileWriter(path.toString());
     } catch (IOException e) {
-      throw new RuntimeException(e);
+      throw new IOException(e);
     }
 
     for (int i = 0; i < output.length(); i++) {

@@ -27,6 +27,46 @@ public class Driver {
 
     // validating that the arguments passed in are correct
     validateArgs(args);
+    // creates the summary of the root path files at the output path according to the order flag
+    summarize(rootPath, orderFlag, outputPath);
+    System.out.println("Successfully summarized files of " + rootPath + " at " + outputPath);
+  }
+
+  /**
+   * Validates that the arguments passed are a valid root path to a directory, a valid order flag
+   * to sort the files, and a valid output file path to write the summary
+   *
+   * @param args the arguments provided by the user
+   */
+  private static void validateArgs(String[] args) {
+
+    if (args.length == 3) {
+
+      Driver.rootPath = Path.of(args[0]);
+
+      // validates the order flag
+      if (args[1].equals("filename") || args[1].equals("created") || args[1].equals("modified")) {
+        Driver.orderFlag = args[1];
+      } else {
+        throw new RuntimeException("Invalid order flag.");
+      }
+
+      Driver.outputPath = Path.of(args[2]);
+
+    } else {
+      throw new IllegalArgumentException("Please provide valid root path, "
+          + "order flag, and output path");
+    }
+  }
+
+  /**
+   * Summarizes the content of the root path and writes it to the output path in order of the flag
+   *
+   * @param rootPath the root path directory of files to summarize
+   * @param orderFlag the order flag to sort the summarize files
+   * @param outputPath the output path file to summarize the files
+   */
+  private static void summarize(Path rootPath, String orderFlag, Path outputPath) {
     // initializing a list of valid types of files for the visitor to "collect"
     ArrayList<String> validTypes = new ArrayList<>(List.of(".md"));
     // initializing the file visitor
@@ -35,7 +75,7 @@ public class Driver {
     try {
       Files.walkFileTree(rootPath, fileVisitor);
     } catch (IOException e) {
-      throw new IllegalArgumentException(e);
+      throw new RuntimeException(e);
     }
     // initializing a list of files from the visitor
     ArrayList<File> files = fileVisitor.getFiles();
@@ -58,55 +98,14 @@ public class Driver {
     // initializing a new write files to path
     WriteFilesToPath fileWriter = new WriteFilesToPath();
     // writing the summarized content at the output path
-    try {
-      fileWriter.writeAtPath(outputPath, formattedFiles);
-    } catch (IOException e) {
-      throw new IllegalArgumentException(e);
-    }
-    System.out.println("Successfully summarized files of " + rootPath + " at " + outputPath);
-
-  }
-
-  /**
-   * Validates that the arguments passed are a valid root path to a directory, a valid order flag
-   * to sort the files, and a valid output file path to write the summary
-   *
-   * @param args the arguments provided by the user
-   */
-  private static void validateArgs(String[] args) {
-
-    if (args.length == 3) {
-
-      // validates the root path
-      Path p = Path.of(args[0]);
-      if (Files.exists(p) && p.toFile().isDirectory()) {
-        Driver.rootPath = p;
-      } else {
-        throw new IllegalArgumentException("Invalid root path.");
+    if (outputPath.toString().endsWith(".md")) {
+      try {
+        fileWriter.writeAtPath(outputPath, formattedFiles);
+      } catch (IOException e) {
+        throw new RuntimeException(e);
       }
-
-      // validates the order flag
-      if (args[1].equals("filename") || args[1].equals("created") || args[1].equals("modified")) {
-        Driver.orderFlag = args[1];
-      } else {
-        throw new IllegalArgumentException("Invalid order flag.");
-      }
-
-      // validates the output path
-      String outputPath = args[2];
-
-      // checks if the path already exists or creates a new file if the path is valid
-      Path path = Path.of(outputPath);
-      File file = new File(path.toString());
-      if (file.getParentFile().isDirectory() && outputPath.endsWith(".md")) {
-        Driver.outputPath = path;
-      } else {
-        throw new IllegalArgumentException("Invalid output path");
-      }
-
     } else {
-      throw new IllegalArgumentException("Please provide valid root path, "
-          + "order flag, and output path");
+      throw new IllegalArgumentException("Output path is not a .md file.");
     }
   }
 }
