@@ -30,7 +30,7 @@ class DriverTest {
     String[] invalidRoot = {"fake-root",
         "modified", "src/tests/resources/outputDirectory/summary.md"};
     assertThrows(IllegalArgumentException.class, () -> Driver.validateArgs(invalidRoot));
-    String[] nonDirectory = {"fake.md", "modified",
+    String[] nonDirectory = {"fsrc/tests/resources/notes-root/arrays.md", "modified",
         "src/tests/resources/outputDirectory/summary.md"};
     assertThrows(IllegalArgumentException.class, () -> Driver.validateArgs(nonDirectory));
     String[] invalidFlag = {"src/tests/resources/notes-root",

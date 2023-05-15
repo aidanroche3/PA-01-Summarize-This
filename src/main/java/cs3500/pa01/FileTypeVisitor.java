@@ -17,7 +17,7 @@ public class FileTypeVisitor implements FileVisitor<Path> {
 
   private final ArrayList<String> validTypes;
   private boolean finishedSearch = false;
-  private ArrayList<File> files = new ArrayList<>();
+  private final ArrayList<File> files = new ArrayList<>();
 
   /**
    * @param validTypes a list of Strings of valid file types to be visited
@@ -86,6 +86,7 @@ public class FileTypeVisitor implements FileVisitor<Path> {
    */
   @Override
   public FileVisitResult visitFileFailed(Path file, IOException exc) {
+    FileTypeVisitor.handleException(exc);
     return CONTINUE;
   }
 
@@ -106,5 +107,14 @@ public class FileTypeVisitor implements FileVisitor<Path> {
   public FileVisitResult postVisitDirectory(Path dir, IOException exc) {
     this.finishedSearch = true;
     return CONTINUE;
+  }
+
+  /**
+   * Handles exceptions that occur during traversal
+   *
+   * @param e the exception to throw
+   */
+  private static void handleException(IOException e) {
+    throw new RuntimeException(e);
   }
 }

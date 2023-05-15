@@ -91,7 +91,8 @@ class FileTypeVisitorTest {
   public void testVisit() {
     assertEquals(result, md.preVisitDirectory(path, attrs));
     assertEquals(result, md.postVisitDirectory(path, new IOException()));
-    assertEquals(result, md.visitFileFailed(path, new IOException()));
+    assertThrows(RuntimeException.class, () -> md.visitFileFailed(path, new IOException()));
     assertEquals(result, md.visitFile(path, attrs));
+    assertEquals(result, md.visitFile(Path.of("invalid"), attrs));
   }
 }
