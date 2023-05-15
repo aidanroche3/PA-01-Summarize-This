@@ -1,8 +1,12 @@
 package cs3500.pa01;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -16,9 +20,16 @@ class DriverTest {
   @Test
   public void testMain() {
     String[] args = {"src/tests/resources/notes-root",
-        "filename", "src/tests/resources/outputDirectory/summary.md"};
+        "filename", "src/tests/resources/outputDirectory/main.md"};
     assertDoesNotThrow(() -> Driver.main(args));
-    // add test to check that the output is correct
+    Driver.main(args);
+    try {
+      assertEquals(-1, Files.mismatch(
+          Path.of("src/tests/resources/outputDirectory/summary.md"),
+          Path.of("src/tests/resources/outputDirectory/main.md")));
+    } catch (IOException e) {
+      throw new IllegalArgumentException(e);
+    }
   }
 
   /**

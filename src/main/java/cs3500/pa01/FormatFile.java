@@ -29,7 +29,7 @@ public class FormatFile {
       char previous = setPrevious(i);
       char current = setCurrent(i);
 
-      // keeps headings
+      // keeps the headings
       if (!heading && current == '#') {
         if (previous == '\n') {
           summarizedContent.append('\n');
@@ -42,6 +42,7 @@ public class FormatFile {
       if (heading && current == '\n') {
         heading = false;
       }
+
       char next = setNext(i);
 
       // keeps bracketed phrases
@@ -57,7 +58,6 @@ public class FormatFile {
       if (bracketed && !(current == '[' && (previous == '[' || next == '['))) {
         summarizedContent.append(current);
       }
-
     }
     return summarizedContent.toString();
   }

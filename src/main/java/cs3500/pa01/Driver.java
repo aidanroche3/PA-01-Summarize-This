@@ -25,7 +25,7 @@ public class Driver {
    */
   public static void main(String[] args) {
 
-    // validating that the arguments passed in are correct
+    // validating that the arguments passed in are valid
     validateArgs(args);
     // creates the summary of the root path files at the output path according to the order flag
     summarize(rootPath, orderFlag, outputPath);
