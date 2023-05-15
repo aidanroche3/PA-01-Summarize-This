@@ -21,30 +21,17 @@ public class FormatFile {
    * @return the content String summarized to only contain headings and bracketed content
    */
   public String summarizeContent() {
-
     StringBuilder summarizedContent = new StringBuilder();
     boolean heading = false;
     boolean bracketed = false;
 
     for (int i = 0; i < content.length(); i++) {
-
-      Character current = content.charAt(i);
-      Character previous;
-      Character next;
-      if (i > 0) {
-        previous = content.charAt(i - 1);
-      } else  {
-        previous = ' ';
-      }
-      if (i < content.length() - 1) {
-        next = content.charAt(i + 1);
-      } else {
-        next = ' ';
-      }
+      char previous = setPrevious(i);
+      char current = setCurrent(i);
 
       // keeps headings
-      if (!heading && current.equals('#')) {
-        if (previous.equals('\n')) {
+      if (!heading && current == '#') {
+        if (previous == '\n') {
           summarizedContent.append('\n');
         }
         heading = true;
@@ -52,26 +39,63 @@ public class FormatFile {
       if (heading) {
         summarizedContent.append(current);
       }
-      if (heading && current.equals('\n')) {
+      if (heading && current == '\n') {
         heading = false;
       }
+      char next = setNext(i);
 
       // keeps bracketed phrases
-      if (!heading && current.equals('[') && next.equals('[')) {
+      if (!heading && current == '[' && next == '[') {
         bracketed = true;
         summarizedContent.append('-');
         summarizedContent.append(' ');
       }
-      if (bracketed && current.equals(']') && next.equals(']')) {
+      if (bracketed && current == ']' && next == ']') {
         summarizedContent.append('\n');
         bracketed = false;
       }
-      if (bracketed && !(current.equals('[') && (previous.equals('[') || next.equals('[')))) {
+      if (bracketed && !(current == '[' && (previous == '[' || next == '['))) {
         summarizedContent.append(current);
       }
 
     }
     return summarizedContent.toString();
+  }
+
+  /**
+   * Returns the previous character in the content string, ' ' if previous is out of bounds
+   *
+   * @param i the current index of content
+   * @return the character before index i
+   */
+  private char setPrevious(int i) {
+    if (i > 0) {
+      return this.content.charAt(i - 1);
+    }
+    return ' ';
+  }
+
+  /**
+   * Returns the current character in the content string
+   *
+   * @param i the current index of content
+   * @return the character at index i
+   */
+  private char setCurrent(int i) {
+    return this.content.charAt(i);
+  }
+
+  /**
+   * Returns the next character in the content string, ' ' if next is out of bounds
+   *
+   * @param i the current index of content
+   * @return the next character after index i
+   */
+  private char setNext(int i) {
+    if (i < this.content.length() - 1) {
+      return this.content.charAt(i + 1);
+    }
+    return ' ';
   }
 
 }
