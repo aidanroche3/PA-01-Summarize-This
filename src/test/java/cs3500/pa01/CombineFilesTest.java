@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -129,17 +128,13 @@ class CombineFilesTest {
    * Tests the getCombinedFiles method
    */
   @Test
-  public void testGetCombinedFiles() throws IOException {
+  public void testGetCombinedFiles() {
     CombineFiles one = new CombineFiles(twoFiles);
     CombineFiles two = new CombineFiles(files);
     String twoCombined;
     String fourCombined;
-    try {
-      twoCombined = one.getCombinedFiles();
-      fourCombined = two.getCombinedFiles();
-    } catch (IOException e) {
-      throw new IOException(e);
-    }
+    twoCombined = one.getCombinedFiles();
+    fourCombined = two.getCombinedFiles();
     CombineFiles three = new CombineFiles(withFake);
     assertEquals(arraysAndTest, twoCombined);
     assertEquals(allCombined, fourCombined);

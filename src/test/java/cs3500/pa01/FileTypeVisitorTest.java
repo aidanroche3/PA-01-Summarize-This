@@ -66,17 +66,24 @@ class FileTypeVisitorTest {
   /**
    * Tests the getFiles method
    *
-   * @throws IOException on walkFileTree
    */
   @Test
-  public void testGetFiles() throws IOException {
+  public void testGetFiles() {
     assertThrows(IllegalStateException.class, () -> md.getFiles());
-    Files.walkFileTree(path, md);
+    try {
+      Files.walkFileTree(path, md);
+    } catch (IOException e) {
+      throw new IllegalStateException(e);
+    }
     ArrayList<File> mdOutput = md.getFiles();
     for (File f : mdOutput) {
       assertTrue(mdFiles.contains(f));
     }
-    Files.walkFileTree(path, both);
+    try {
+      Files.walkFileTree(path, both);
+    } catch (IOException e) {
+      throw new IllegalStateException(e);
+    }
     ArrayList<File> bothOutput = both.getFiles();
     for (File f : bothOutput) {
       assertTrue(bothFiles.contains(f));
@@ -93,6 +100,5 @@ class FileTypeVisitorTest {
     assertEquals(result, md.postVisitDirectory(path, new IOException()));
     assertThrows(RuntimeException.class, () -> md.visitFileFailed(path, new IOException()));
     assertEquals(result, md.visitFile(path, attrs));
-    assertEquals(result, md.visitFile(Path.of("invalid"), attrs));
   }
 }

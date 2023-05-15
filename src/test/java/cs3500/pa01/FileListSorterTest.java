@@ -39,10 +39,9 @@ class FileListSorterTest {
   /**
    * Initializes the data to be tested
    *
-   * @throws IOException on walkFileTree
    */
   @BeforeEach
-  public void setup() throws IOException {
+  public void setup() {
     path = Path.of("src/tests/resources/notes-root");
     validTypes = new ArrayList<>(List.of(".md"));
     visitor = new FileTypeVisitor(validTypes);
@@ -50,27 +49,31 @@ class FileListSorterTest {
     test = Path.of("src/tests/resources/notes-root/test.md").toFile();
     vectors = Path.of("src/tests/resources/notes-root/vectors.md").toFile();
     java = Path.of("src/tests/resources/notes-root/lecture notes/java.md").toFile();
-    FileTime arraysCreated =
-        Files.readAttributes(arrays.toPath(), BasicFileAttributes.class).creationTime();
-    FileTime arraysModified =
-        Files.readAttributes(arrays.toPath(), BasicFileAttributes.class).lastModifiedTime();
-    arraysMd = new MarkDownFile(arrays, arraysCreated, arraysModified);
-    FileTime testCreated =
-        Files.readAttributes(test.toPath(), BasicFileAttributes.class).creationTime();
-    FileTime testModified =
-        Files.readAttributes(test.toPath(), BasicFileAttributes.class).lastModifiedTime();
-    testMd = new MarkDownFile(test, testCreated, testModified);
-    FileTime vectorsCreated =
-        Files.readAttributes(vectors.toPath(), BasicFileAttributes.class).creationTime();
-    FileTime vectorsModified =
-        Files.readAttributes(vectors.toPath(), BasicFileAttributes.class).lastModifiedTime();
-    vectorsMd = new MarkDownFile(vectors, vectorsCreated, vectorsModified);
-    FileTime javaCreated =
-        Files.readAttributes(java.toPath(), BasicFileAttributes.class).creationTime();
-    FileTime javaModified =
-        Files.readAttributes(java.toPath(), BasicFileAttributes.class).lastModifiedTime();
-    javaMd = new MarkDownFile(java, javaCreated, javaModified);
-    Files.walkFileTree(path, visitor);
+    try {
+      FileTime arraysCreated =
+          Files.readAttributes(arrays.toPath(), BasicFileAttributes.class).creationTime();
+      FileTime arraysModified =
+          Files.readAttributes(arrays.toPath(), BasicFileAttributes.class).lastModifiedTime();
+      arraysMd = new MarkDownFile(arrays, arraysCreated, arraysModified);
+      FileTime testCreated =
+          Files.readAttributes(test.toPath(), BasicFileAttributes.class).creationTime();
+      FileTime testModified =
+          Files.readAttributes(test.toPath(), BasicFileAttributes.class).lastModifiedTime();
+      testMd = new MarkDownFile(test, testCreated, testModified);
+      FileTime vectorsCreated =
+          Files.readAttributes(vectors.toPath(), BasicFileAttributes.class).creationTime();
+      FileTime vectorsModified =
+          Files.readAttributes(vectors.toPath(), BasicFileAttributes.class).lastModifiedTime();
+      vectorsMd = new MarkDownFile(vectors, vectorsCreated, vectorsModified);
+      FileTime javaCreated =
+          Files.readAttributes(java.toPath(), BasicFileAttributes.class).creationTime();
+      FileTime javaModified =
+          Files.readAttributes(java.toPath(), BasicFileAttributes.class).lastModifiedTime();
+      javaMd = new MarkDownFile(java, javaCreated, javaModified);
+      Files.walkFileTree(path, visitor);
+    } catch (IOException e) {
+      throw  new IllegalArgumentException(e);
+    }
     files = visitor.getFiles();
     mdFiles = MarkDownFile.listToMarkDownFiles(files);
     name = new ArrayList<>(Arrays.asList(arraysMd, javaMd, testMd, vectorsMd));

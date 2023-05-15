@@ -3,7 +3,6 @@ package cs3500.pa01;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,7 +11,7 @@ import java.util.Scanner;
  */
 public class CombineFiles {
 
-  private ArrayList<File> fileList;
+  private final ArrayList<File> fileList;
 
   /**
    *
@@ -26,9 +25,8 @@ public class CombineFiles {
    * Combines a list of files into a string with a new line between each file
    *
    * @return a String of the combined contents of each file in fileList
-   * @throws IOException on I/O failures
    */
-  public String getCombinedFiles() throws IOException {
+  public String getCombinedFiles() {
 
     StringBuilder combinedFiles = new StringBuilder();
     for (File f : fileList) {

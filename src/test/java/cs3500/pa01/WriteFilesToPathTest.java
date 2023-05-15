@@ -20,14 +20,15 @@ class WriteFilesToPathTest {
    * Tests the writeFilesToPath method
    */
   @Test
-  public void testWriteFilesToPath() throws IOException {
+  public void testWriteFilesToPath() {
     File arrays = Path.of("src/tests/resources/notes-root/arrays.md").toFile();
     File testOne = Path.of("src/tests/resources/notes-root/test.md").toFile();
     File vectors = Path.of("src/tests/resources/notes-root/vectors.md").toFile();
     File java = Path.of("src/tests/resources/notes-root/lecture notes/java.md").toFile();
     ArrayList<File> files = new ArrayList<>(Arrays.asList(arrays, testOne, vectors, java));
     CombineFiles combine = new CombineFiles(files);
-    String combined = combine.getCombinedFiles();
+    String combined;
+    combined = combine.getCombinedFiles();
     FormatFile formatFile = new FormatFile(combined);
     String output = formatFile.summarizeContent();
 
@@ -35,8 +36,16 @@ class WriteFilesToPathTest {
     Path testTwo = Path.of("src/tests/resources/outputDirectory/test.md");
     Path fake = Path.of("src/tests/resources/fakeDirectory/nonexistent.md");
     WriteFilesToPath filesToPath = new WriteFilesToPath();
-    filesToPath.writeAtPath(testTwo, output);
-    assertEquals(-1, Files.mismatch(sample, testTwo));
+    try {
+      filesToPath.writeAtPath(testTwo, output);
+    } catch (IOException e) {
+      throw new IllegalArgumentException(e);
+    }
+    try {
+      assertEquals(-1, Files.mismatch(sample, testTwo));
+    } catch (IOException e) {
+      throw new IllegalArgumentException(e);
+    }
     assertThrows(RuntimeException.class, () -> filesToPath.writeAtPath(fake, output));
   }
 
