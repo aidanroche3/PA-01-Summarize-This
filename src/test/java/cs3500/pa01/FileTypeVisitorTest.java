@@ -53,8 +53,8 @@ class FileTypeVisitorTest {
     notes = Path.of("src/tests/resources/notes-root/notes.pdf").toFile();
     test = Path.of("src/tests/resources/notes-root/test.md").toFile();
     vectors = Path.of("src/tests/resources/notes-root/vectors.md").toFile();
-    duedates = Path.of("src/tests/resources/notes-root/lecture notes/duedates.pdf").toFile();
-    java = Path.of("src/tests/resources/notes-root/lecture notes/java.md").toFile();
+    duedates = Path.of("src/tests/resources/notes-root/lecture-notes/duedates.pdf").toFile();
+    java = Path.of("src/tests/resources/notes-root/lecture-notes/java.md").toFile();
     mdFiles = new ArrayList<>(Arrays.asList(arrays, java, test, vectors));
     bothFiles = new ArrayList<>(Arrays.asList(arrays, duedates, java, notes, test, vectors));
     md = new FileTypeVisitor(onlyMd);

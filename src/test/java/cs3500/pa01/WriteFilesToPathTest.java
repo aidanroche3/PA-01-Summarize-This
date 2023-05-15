@@ -24,7 +24,7 @@ class WriteFilesToPathTest {
     File arrays = Path.of("src/tests/resources/notes-root/arrays.md").toFile();
     File testOne = Path.of("src/tests/resources/notes-root/test.md").toFile();
     File vectors = Path.of("src/tests/resources/notes-root/vectors.md").toFile();
-    File java = Path.of("src/tests/resources/notes-root/lecture notes/java.md").toFile();
+    File java = Path.of("src/tests/resources/notes-root/lecture-notes/java.md").toFile();
     ArrayList<File> files = new ArrayList<>(Arrays.asList(arrays, testOne, vectors, java));
     CombineFiles combine = new CombineFiles(files);
     String combined;

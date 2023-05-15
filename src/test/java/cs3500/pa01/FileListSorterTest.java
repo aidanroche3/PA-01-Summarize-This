@@ -48,7 +48,7 @@ class FileListSorterTest {
     arrays = Path.of("src/tests/resources/notes-root/arrays.md").toFile();
     test = Path.of("src/tests/resources/notes-root/test.md").toFile();
     vectors = Path.of("src/tests/resources/notes-root/vectors.md").toFile();
-    java = Path.of("src/tests/resources/notes-root/lecture notes/java.md").toFile();
+    java = Path.of("src/tests/resources/notes-root/lecture-notes/java.md").toFile();
     try {
       FileTime arraysCreated =
           Files.readAttributes(arrays.toPath(), BasicFileAttributes.class).creationTime();

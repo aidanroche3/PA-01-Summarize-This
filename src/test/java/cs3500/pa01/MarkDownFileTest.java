@@ -38,7 +38,7 @@ class MarkDownFileTest {
     vectors = Path.of("src/tests/resources/notes-root/vectors.md").toFile();
     invalidFormat = Path.of("src/tests/resources/notes-root/invalid.pdf").toFile();
     invalidPath = Path.of("src/tests/resources/notes-root/invalid.md").toFile();
-    java = Path.of("src/tests/resources/notes-root/lecture notes/java.md").toFile();
+    java = Path.of("src/tests/resources/notes-root/lecture-notes/java.md").toFile();
     arraysMd = new MarkDownFile(arrays);
     testMd = new MarkDownFile(test);
     vectorsMd = new MarkDownFile(vectors);
