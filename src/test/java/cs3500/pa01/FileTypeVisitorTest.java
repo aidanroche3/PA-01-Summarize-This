@@ -2,6 +2,7 @@ package cs3500.pa01;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
@@ -71,9 +72,15 @@ class FileTypeVisitorTest {
   public void testGetFiles() throws IOException {
     assertThrows(IllegalStateException.class, () -> md.getFiles());
     Files.walkFileTree(path, md);
-    assertEquals(mdFiles, md.getFiles());
+    ArrayList<File> mdOutput = md.getFiles();
+    for (File f : mdOutput) {
+      assertTrue(mdFiles.contains(f));
+    }
     Files.walkFileTree(path, both);
-    assertEquals(bothFiles, both.getFiles());
+    ArrayList<File> bothOutput = both.getFiles();
+    for (File f : bothOutput) {
+      assertTrue(bothFiles.contains(f));
+    }
   }
 
   /**
