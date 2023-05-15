@@ -18,9 +18,11 @@ class FileNameComparatorTest {
   public void testCompare() {
     File one = Path.of("src/tests/resources/notes-root/arrays.md").toFile();
     File two = Path.of("src/tests/resources/notes-root/vectors.md").toFile();
+    MarkDownFile mdOne = new MarkDownFile(one);
+    MarkDownFile mdTwo = new MarkDownFile(two);
     FileNameComparator fnc = new FileNameComparator();
-    assertEquals(-21, fnc.compare(one, two));
-    assertEquals(21, fnc.compare(two, one));
+    assertEquals(-21, fnc.compare(mdOne, mdTwo));
+    assertEquals(21, fnc.compare(mdTwo, mdOne));
   }
 
 }

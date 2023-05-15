@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.FileTime;
+import java.util.ArrayList;
 
 /**
  * Class for representing a markdown file
@@ -87,6 +88,36 @@ public class MarkDownFile {
    */
   public File toFile() {
     return this.source;
+  }
+
+  /**
+   * Returns a list of File as a list of MarkDownFile
+   *
+   * @param files a list of File
+   * @return a list of MarkDownFile
+   */
+  public static ArrayList<MarkDownFile> listToMarkDownFiles(ArrayList<File> files) {
+
+    ArrayList<MarkDownFile> mdFiles = new ArrayList<>();
+    for (File f : files) {
+      mdFiles.add(new MarkDownFile(f));
+    }
+    return mdFiles;
+  }
+
+  /**
+   * Returns a list of MarkDownFile as a list of File
+   *
+   * @param mdFiles a list of MarkDownFiles
+   * @return a list of File
+   */
+  public static ArrayList<File> listToFiles(ArrayList<MarkDownFile> mdFiles) {
+
+    ArrayList<File> files = new ArrayList<>();
+    for (MarkDownFile m : mdFiles) {
+      files.add(m.toFile());
+    }
+    return files;
   }
 
 }

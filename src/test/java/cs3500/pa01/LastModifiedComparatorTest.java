@@ -1,7 +1,6 @@
 package cs3500.pa01;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -19,10 +18,10 @@ public class LastModifiedComparatorTest {
   public void testCompare() {
     File one = Path.of("src/tests/resources/notes-root/arrays.md").toFile();
     File two = Path.of("src/tests/resources/notes-root/vectors.md").toFile();
-    File three = Path.of("src/tests/resources/notes-root/nonexistent.pdf").toFile();
+    MarkDownFile mdOne = new MarkDownFile(one);
+    MarkDownFile mdTwo = new MarkDownFile(two);
     LastModifiedComparator lmc = new LastModifiedComparator();
-    assertEquals(-1, lmc.compare(one, two));
-    assertEquals(1, lmc.compare(two, one));
-    assertThrows(IllegalArgumentException.class, () -> lmc.compare(one, three));
+    assertEquals(-1, lmc.compare(mdOne, mdTwo));
+    assertEquals(1, lmc.compare(mdTwo, mdOne));
   }
 }

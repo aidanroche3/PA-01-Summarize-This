@@ -16,7 +16,8 @@ class MarkDownFileTest {
   File arrays;
   File test;
   File vectors;
-  File invalid;
+  File invalidFormat;
+  File invalidPath;
   File java;
   MarkDownFile arraysMd;
   MarkDownFile testMd;
@@ -31,7 +32,8 @@ class MarkDownFileTest {
     arrays = Path.of("src/tests/resources/notes-root/arrays.md").toFile();
     test = Path.of("src/tests/resources/notes-root/test.md").toFile();
     vectors = Path.of("src/tests/resources/notes-root/vectors.md").toFile();
-    invalid = Path.of("src/tests/resources/notes-root/invalid.md").toFile();
+    invalidFormat = Path.of("src/tests/resources/notes-root/invalid.pdf").toFile();
+    invalidPath = Path.of("src/tests/resources/notes-root/invalid.md").toFile();
     java = Path.of("src/tests/resources/notes-root/lecture notes/java.md").toFile();
     arraysMd = new MarkDownFile(arrays);
     testMd = new MarkDownFile(test);
@@ -44,7 +46,8 @@ class MarkDownFileTest {
    */
   @Test
   public void testConstructor() {
-    assertThrows(IllegalArgumentException.class, () -> new MarkDownFile(invalid));
+    assertThrows(IllegalArgumentException.class, () -> new MarkDownFile(invalidFormat));
+    assertThrows(IllegalArgumentException.class, () -> new MarkDownFile(invalidPath));
   }
 
   /**

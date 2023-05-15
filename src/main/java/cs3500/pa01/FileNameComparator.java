@@ -1,12 +1,11 @@
 package cs3500.pa01;
 
-import java.io.File;
 import java.util.Comparator;
 
 /**
  * Class for comparing files based on their filename
  */
-public class FileNameComparator implements Comparator<File> {
+public class FileNameComparator implements Comparator<MarkDownFile> {
 
   /**
    * @param one the first object to be compared.
@@ -15,9 +14,9 @@ public class FileNameComparator implements Comparator<File> {
    negative number if the filename of two is lower in the alphabet
    */
   @Override
-  public int compare(File one, File two) {
-    String first = new MarkDownFile(one).getFilename();
-    String second = new MarkDownFile(two).getFilename();
+  public int compare(MarkDownFile one, MarkDownFile two) {
+    String first = one.getFilename();
+    String second = two.getFilename();
     return first.compareTo(second);
   }
 }

@@ -31,8 +31,10 @@ public class Driver {
     FileTypeVisitor fileVisitor = new FileTypeVisitor(validTypes);
     Files.walkFileTree(rootPath, fileVisitor);
     ArrayList<File> files = fileVisitor.getFiles();
-    FileListSorter fileSorter = new FileListSorter(files, orderFlag);
-    ArrayList<File> sortedFiles = fileSorter.getSortedList();
+    ArrayList<MarkDownFile> mdFiles = MarkDownFile.listToMarkDownFiles(files);
+    FileListSorter fileSorter = new FileListSorter(mdFiles, orderFlag);
+    ArrayList<MarkDownFile> sortedMdFiles = fileSorter.getSortedList();
+    ArrayList<File> sortedFiles = MarkDownFile.listToFiles(sortedMdFiles);
     CombineFiles filerCombiner = new CombineFiles(sortedFiles);
     String combinedFiles = filerCombiner.getCombinedFiles();
     FormatFile fileFormatter = new FormatFile(combinedFiles);

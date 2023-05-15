@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.attribute.FileTime;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,14 +27,15 @@ class FileListSorterTest {
   File test;
   File vectors;
   File java;
-  File arraysMd;
-  File testMd;
-  File vectorsMd;
-  File javaMd;
+  MarkDownFile arraysMd;
+  MarkDownFile testMd;
+  MarkDownFile vectorsMd;
+  MarkDownFile javaMd;
   ArrayList<File> files;
-  ArrayList<File> name;
-  ArrayList<File> modified;
-  ArrayList<File> created;
+  ArrayList<MarkDownFile> mdFiles;
+  ArrayList<MarkDownFile> name;
+  ArrayList<MarkDownFile> modified;
+  ArrayList<MarkDownFile> created;
 
   /**
    * Initializes the data to be tested
@@ -50,22 +52,23 @@ class FileListSorterTest {
     vectors = Path.of("src/tests/resources/notes-root/vectors.md").toFile();
     java = Path.of("src/tests/resources/notes-root/lecture notes/java.md").toFile();
     arraysMd = new MarkDownFile(arrays,
-        FileTime.fromMillis(1683850965878L),
-        FileTime.fromMillis(1683850988417L)).toFile();
+        FileTime.from(Instant.parse("2023-05-12T00:22:45.8787901Z")),
+        FileTime.from(Instant.parse("2023-05-12T00:23:08.4171844Z")));
     testMd = new MarkDownFile(test,
-        FileTime.fromMillis(1683865633836L),
-        FileTime.fromMillis(1683865651299L)).toFile();
+        FileTime.from(Instant.parse("2023-05-12T04:27:13.8361739Z")),
+        FileTime.from(Instant.parse("2023-05-12T04:27:31.2998209Z")));
     vectorsMd = new MarkDownFile(vectors,
-        FileTime.fromMillis(1683851000934L),
-        FileTime.fromMillis(1683865690271L)).toFile();
+        FileTime.from(Instant.parse("2023-05-12T00:23:20.9349153Z")),
+        FileTime.from(Instant.parse("2023-05-12T04:28:10.2716696Z")));
     javaMd = new MarkDownFile(java,
-        FileTime.fromMillis(1683935438465L),
-        FileTime.fromMillis(1683941287429L)).toFile();
+        FileTime.from(Instant.parse("2023-05-12T23:50:38.4657258Z")),
+        FileTime.from(Instant.parse("2023-05-13T01:28:07.4298933Z")));
     Files.walkFileTree(path, visitor);
     files = visitor.getFiles();
+    mdFiles = MarkDownFile.listToMarkDownFiles(files);
     name = new ArrayList<>(Arrays.asList(arraysMd, javaMd, testMd, vectorsMd));
-    modified = new ArrayList<>(Arrays.asList(arraysMd, testMd, vectorsMd, javaMd));
     created = new ArrayList<>(Arrays.asList(arraysMd, vectorsMd, testMd, javaMd));
+    modified = new ArrayList<>(Arrays.asList(arraysMd, testMd, vectorsMd, javaMd));
   }
 
   /**
@@ -73,8 +76,11 @@ class FileListSorterTest {
    */
   @Test
   public void testFilenameSort() {
-    FileListSorter fls = new FileListSorter(files, "filename");
-    assertEquals(name, fls.getSortedList());
+    FileListSorter fls = new FileListSorter(mdFiles, "filename");
+    ArrayList<MarkDownFile> nameOutput = fls.getSortedList();
+    for (int i = 0; i < name.size(); i++) {
+      assertEquals(name.get(i).getFilename(), nameOutput.get(i).getFilename());
+    }
   }
 
   /**
@@ -82,8 +88,11 @@ class FileListSorterTest {
    */
   @Test
   public void testCreatedSort() {
-    FileListSorter fls = new FileListSorter(files, "created");
-    assertEquals(created, fls.getSortedList());
+    FileListSorter fls = new FileListSorter(mdFiles, "created");
+    ArrayList<MarkDownFile> createdOutput = fls.getSortedList();
+    for (int i = 0; i < created.size(); i++) {
+      assertEquals(created.get(i).getDateCreated(), createdOutput.get(i).getDateCreated());
+    }
   }
 
   /**
@@ -91,8 +100,11 @@ class FileListSorterTest {
    */
   @Test
   public void testModifiedSort() {
-    FileListSorter fls = new FileListSorter(files, "modified");
-    assertEquals(modified, fls.getSortedList());
+    FileListSorter fls = new FileListSorter(mdFiles, "modified");
+    ArrayList<MarkDownFile> modifiedOutput = fls.getSortedList();
+    for (int i = 0; i < modified.size(); i++) {
+      assertEquals(modified.get(i).getLastModified(), modifiedOutput.get(i).getLastModified());
+    }
   }
 
   /**
@@ -101,7 +113,7 @@ class FileListSorterTest {
    */
   @Test
   public void testUnsupportedSort() {
-    FileListSorter fls = new FileListSorter(files, "filesize");
+    FileListSorter fls = new FileListSorter(mdFiles, "filesize");
     assertThrows(IllegalStateException.class, fls::getSortedList);
   }
 

@@ -1,6 +1,5 @@
 package cs3500.pa01;
 
-import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -8,7 +7,7 @@ import java.util.ArrayList;
  */
 public class FileListSorter {
 
-  private ArrayList<File> fileList;
+  private final ArrayList<MarkDownFile> fileList;
   private final String orderFlag;
 
   /**
@@ -16,7 +15,7 @@ public class FileListSorter {
    * @param fileList the list of files to be sorted
    * @param orderFlag the order flag of how to sort the files
    */
-  public FileListSorter(ArrayList<File> fileList, String orderFlag) {
+  public FileListSorter(ArrayList<MarkDownFile> fileList, String orderFlag) {
     this.fileList = fileList;
     this.orderFlag = orderFlag;
   }
@@ -26,7 +25,7 @@ public class FileListSorter {
    *
    * @return the sorted list of files
    */
-  public ArrayList<File> getSortedList() {
+  public ArrayList<MarkDownFile> getSortedList() {
 
     switch (orderFlag) {
       case "filename" -> fileList.sort(new FileNameComparator());
