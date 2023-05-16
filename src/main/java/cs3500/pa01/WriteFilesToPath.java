@@ -14,6 +14,7 @@ public class WriteFilesToPath {
    *
    * @param outputPath the path to write to
    * @param output the content to write at the path
+   * @throws IOException on I/O failure
    */
   public void writeAtPath(Path outputPath, String output) throws IOException {
     Path path = Path.of(outputPath.toString());
