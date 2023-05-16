@@ -20,6 +20,8 @@ public class FileTypeVisitor implements FileVisitor<Path> {
   private final ArrayList<File> files = new ArrayList<>();
 
   /**
+   * Instantiates a file visitor with a list of valid types of files to visit
+   *
    * @param validTypes a list of Strings of valid file types to be visited
    */
   public FileTypeVisitor(ArrayList<String> validTypes) {

@@ -8,6 +8,7 @@ public class FormatFile {
   private final String content;
 
   /**
+   * Instantiates a file formatter with a String of content
    *
    * @param content the content to be formatted into a summary
    */
@@ -27,7 +28,7 @@ public class FormatFile {
 
     for (int i = 0; i < content.length(); i++) {
       char previous = setPrevious(i);
-      char current = setCurrent(i);
+      char current = content.charAt(i);
 
       // keeps the headings
       if (!heading && current == '#') {
@@ -55,7 +56,8 @@ public class FormatFile {
         summarizedContent.append('\n');
         bracketed = false;
       }
-      if (bracketed && !(current == '[' && (previous == '[' || next == '['))) {
+      if (bracketed && !(current == '\n')
+          && !(current == '[' && (previous == '[' || next == '['))) {
         summarizedContent.append(current);
       }
     }
@@ -73,16 +75,6 @@ public class FormatFile {
       return this.content.charAt(i - 1);
     }
     return ' ';
-  }
-
-  /**
-   * Returns the current character in the content string
-   *
-   * @param i the current index of content
-   * @return the character at index i
-   */
-  private char setCurrent(int i) {
-    return this.content.charAt(i);
   }
 
   /**

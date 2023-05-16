@@ -11,6 +11,7 @@ public class FileListSorter {
   private final String orderFlag;
 
   /**
+   * Instantiates a file list sorter with a list of files and an order flag
    *
    * @param fileList the list of files to be sorted
    * @param orderFlag the order flag of how to sort the files

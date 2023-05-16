@@ -18,7 +18,7 @@ public class MarkDownFile {
   private final FileTime lastModified;
 
   /**
-   * Constructor for passing in a file
+   * Instantiates a markdown file with a file
    *
    * @param file a valid .md file
    */
@@ -41,7 +41,7 @@ public class MarkDownFile {
   }
 
   /**
-   * Constructor for passing in metadata to represent a file
+   * Instantiates a markdown file with a file, date created, and time of last modification
    *
    * @param file the source file
    * @param dateCreated the date the file was created

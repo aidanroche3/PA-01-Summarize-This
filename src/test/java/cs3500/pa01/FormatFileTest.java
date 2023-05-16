@@ -47,8 +47,8 @@ class FormatFileTest {
         - [[General Form: type[] arrayName;]]
         - ex: int[] myData;
 
-        - The above only creates a reference to an array object, but no array has
-          actually been created yet.
+        - The above only creates a reference to an array object, [[but no array has
+         actually been created yet.]]
 
         ## Creating an Array (Instantiation)
         - [[General form:  arrayName = new type[numberOfElements];]]
@@ -114,6 +114,7 @@ class FormatFileTest {
             
       ## Declaring an Array
       - General Form: type[] arrayName;
+      - but no array has actually been created yet.
             
       ## Creating an Array (Instantiation)
       - General form:  arrayName = new type[numberOfElements];

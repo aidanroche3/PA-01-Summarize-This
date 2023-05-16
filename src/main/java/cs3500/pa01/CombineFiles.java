@@ -14,6 +14,7 @@ public class CombineFiles {
   private final ArrayList<File> fileList;
 
   /**
+   *  Instantiates a combine files with a list of files
    *
    * @param fileList a list of files
    */
