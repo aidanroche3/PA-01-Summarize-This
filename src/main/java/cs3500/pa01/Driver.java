@@ -19,12 +19,12 @@ public class Driver {
   /**
    * Project entry point
    *
-   * @param args - user is required to provide a root path directory, order flag to sort the files,
+   * @param args user is required to provide a root path directory, order flag to sort the files,
    *             and an output path to write the summary
-   *             Example: "notes-root filename outputDirectory/summary.md"
+   *             Example: "src/tests/resources/notes-root
+   *             filename src/tests/resources/outputDirectory/summary.md"
    */
   public static void main(String[] args) {
-
     // validating that the arguments passed in are valid
     validateArgs(args);
     // creates the summary of the root path files at the output path according to the order flag
@@ -33,8 +33,7 @@ public class Driver {
   }
 
   /**
-   * Validates that the arguments passed are a valid root path to a directory, a valid order flag
-   * to sort the files, and a valid output file path to write the summary
+   * Initializes the fields of main, checking that the order flag is valid
    *
    * @param args the arguments provided by the user
    */
@@ -42,15 +41,17 @@ public class Driver {
 
     if (args.length == 3) {
 
+      // sets the root path, validity will be checked at runtime
       Driver.rootPath = Path.of(args[0]);
 
       // validates the order flag
       if (args[1].equals("filename") || args[1].equals("created") || args[1].equals("modified")) {
         Driver.orderFlag = args[1];
       } else {
-        throw new RuntimeException("Invalid order flag.");
+        throw new IllegalArgumentException("Invalid order flag.");
       }
 
+      // sets the output path, validity will be checked at runtime
       Driver.outputPath = Path.of(args[2]);
 
     } else {

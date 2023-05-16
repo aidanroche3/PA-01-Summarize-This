@@ -47,7 +47,7 @@ class DriverTest {
     assertThrows(RuntimeException.class, () -> Driver.main(nonDirectory));
     String[] invalidFlag = {"src/tests/resources/notes-root",
         "invalid", "src/tests/resources/outputDirectory/summary.md"};
-    assertThrows(RuntimeException.class, () -> Driver.main(invalidFlag));
+    assertThrows(IllegalArgumentException.class, () -> Driver.main(invalidFlag));
     String[] invalidRelativePath = {"src/tests/resources/notes-root",
         "created", "src/tests/resources/fakeDirectory/new"};
     assertThrows(RuntimeException.class, () -> Driver.main(invalidRelativePath));

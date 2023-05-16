@@ -11,7 +11,7 @@ public class CompareByDate implements Comparator<MarkDownFile> {
   /**
    * @param one the first object to be compared.
    * @param two the second object to be compared.
-   * @return a positive number is file one's creation date is more recent
+   * @return a positive number if file one's creation date is more recent
    or a negative number if file two's creation is more recent
    */
   @Override
